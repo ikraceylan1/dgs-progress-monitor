@@ -49,6 +49,7 @@
             txtDenemeAdi = new TextBox();
             lblObp = new Label();
             nudObp = new NumericUpDown();
+            lblEaNet = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvDenemeler).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMatDogru).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMatYanlis).BeginInit();
@@ -232,15 +233,27 @@
             nudObp.DecimalPlaces = 2;
             nudObp.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             nudObp.Location = new Point(435, 137);
+            nudObp.Minimum = new decimal(new int[] { 50, 0, 0, 0 });
             nudObp.Name = "nudObp";
             nudObp.Size = new Size(150, 27);
             nudObp.TabIndex = 28;
+            nudObp.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            // 
+            // lblEaNet
+            // 
+            lblEaNet.AutoSize = true;
+            lblEaNet.Location = new Point(285, 420);
+            lblEaNet.Name = "lblEaNet";
+            lblEaNet.Size = new Size(122, 20);
+            lblEaNet.TabIndex = 29;
+            lblEaNet.Text = "Eşit Ağırlık Net: 0";
             // 
             // FormDeneme
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(922, 623);
+            Controls.Add(lblEaNet);
             Controls.Add(nudObp);
             Controls.Add(lblObp);
             Controls.Add(txtDenemeAdi);
@@ -264,6 +277,7 @@
             Controls.Add(dtpTarih);
             Name = "FormDeneme";
             Text = "FormDeneme";
+            Load += FormDeneme_Load;
             ((System.ComponentModel.ISupportInitialize)dgvDenemeler).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMatDogru).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMatYanlis).EndInit();
@@ -297,5 +311,6 @@
         private TextBox txtDenemeAdi;
         private Label lblObp;
         private NumericUpDown nudObp;
+        private Label lblEaNet;
     }
 }

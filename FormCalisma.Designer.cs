@@ -103,9 +103,11 @@
             nudSaat.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
             nudSaat.Location = new Point(105, 164);
             nudSaat.Maximum = new decimal(new int[] { 24, 0, 0, 0 });
+            nudSaat.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudSaat.Name = "nudSaat";
             nudSaat.Size = new Size(150, 27);
             nudSaat.TabIndex = 6;
+            nudSaat.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // txtNot
             // 
@@ -138,10 +140,10 @@
             // dgvCalismalar
             // 
             dgvCalismalar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCalismalar.Location = new Point(12, 311);
+            dgvCalismalar.Location = new Point(12, 324);
             dgvCalismalar.Name = "dgvCalismalar";
             dgvCalismalar.RowHeadersWidth = 51;
-            dgvCalismalar.Size = new Size(734, 127);
+            dgvCalismalar.Size = new Size(778, 153);
             dgvCalismalar.TabIndex = 10;
             // 
             // lblKonu
@@ -165,7 +167,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(758, 450);
+            ClientSize = new Size(802, 482);
             Controls.Add(cmbKonu);
             Controls.Add(lblKonu);
             Controls.Add(dgvCalismalar);

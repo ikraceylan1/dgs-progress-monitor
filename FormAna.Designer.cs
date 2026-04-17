@@ -34,6 +34,7 @@
             btnGrafik = new Button();
             btnDeneme = new Button();
             btnGunluk = new Button();
+            chkTema = new CheckBox();
             SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -77,11 +78,24 @@
             btnGunluk.UseVisualStyleBackColor = false;
             btnGunluk.Click += btnGunluk_Click;
             // 
+            // chkTema
+            // 
+            resources.ApplyResources(chkTema, "chkTema");
+            chkTema.BackColor = Color.Transparent;
+            chkTema.Checked = true;
+            chkTema.CheckState = CheckState.Checked;
+            chkTema.FlatAppearance.BorderSize = 0;
+            chkTema.ForeColor = Color.White;
+            chkTema.Name = "chkTema";
+            chkTema.UseVisualStyleBackColor = false;
+            chkTema.CheckedChanged += chkTema_CheckedChanged;
+            // 
             // FormAna
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
+            Controls.Add(chkTema);
             Controls.Add(btnHedef);
             Controls.Add(btnGrafik);
             Controls.Add(btnDeneme);
@@ -90,6 +104,7 @@
             MaximizeBox = false;
             Name = "FormAna";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -98,5 +113,6 @@
         private Button btnGrafik;
         private Button btnDeneme;
         private Button btnGunluk;
+        private CheckBox chkTema;
     }
 }

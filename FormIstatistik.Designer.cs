@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             chartCalisma = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartDeneme = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)chartCalisma).BeginInit();
@@ -42,32 +42,34 @@
             // 
             // chartCalisma
             // 
-            chartArea3.Name = "ChartArea1";
-            chartCalisma.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            chartCalisma.Legends.Add(legend3);
+            chartCalisma.BorderlineColor = Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            chartCalisma.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chartCalisma.Legends.Add(legend1);
             chartCalisma.Location = new Point(12, 12);
             chartCalisma.Name = "chartCalisma";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            chartCalisma.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chartCalisma.Series.Add(series1);
             chartCalisma.Size = new Size(356, 240);
             chartCalisma.TabIndex = 0;
             chartCalisma.Text = "chart1";
             // 
             // chartDeneme
             // 
-            chartArea4.Name = "ChartArea1";
-            chartDeneme.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            chartDeneme.Legends.Add(legend4);
+            chartDeneme.BorderlineColor = Color.Transparent;
+            chartArea2.Name = "ChartArea1";
+            chartDeneme.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            chartDeneme.Legends.Add(legend2);
             chartDeneme.Location = new Point(413, 12);
             chartDeneme.Name = "chartDeneme";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            chartDeneme.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            chartDeneme.Series.Add(series2);
             chartDeneme.Size = new Size(375, 240);
             chartDeneme.TabIndex = 1;
             chartDeneme.Text = "chart2";

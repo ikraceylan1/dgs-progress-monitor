@@ -74,6 +74,7 @@ namespace DgsTakipSistemi_DGSTS_
         }
         private void FormCalisma_Load(object sender, EventArgs e)
         {
+            TemaHelper.TemaUygula(this);
             ListeyiYukle();
         }
 
@@ -108,16 +109,30 @@ namespace DgsTakipSistemi_DGSTS_
         {
             if (dgvCalismalar.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Lütfen silmek istediğiniz satırı seçin!", "Uyarı");
+                MessageBox.Show("Lütfen silmek istediğiniz satırı seçin!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DataGridViewRow satir = dgvCalismalar.SelectedRows[0];
-            string silinecek = $"{satir.Cells[0].Value}|{satir.Cells[1].Value}|{satir.Cells[2].Value}|{satir.Cells[3].Value}|{satir.Cells[4].Value}";
+            // 1. Önce satırı ekrandaki tablodan (DataGridView) siliyoruz
+            dgvCalismalar.Rows.Remove(dgvCalismalar.SelectedRows[0]);
+            dgvCalismalar.ClearSelection();
 
-            FileHelper.SatirSil(FileHelper.CalismaPath, silinecek);
-            ListeyiYukle();
-            MessageBox.Show("Silindi!", "Bilgi");
+            // 2. KURŞUN GEÇİRMEZ TAKTİK: Tablonun GÜNCEL halini al, dosyayı tamamen EZİP baştan yaz!
+            // (StreamWriter'daki 'false' parametresi dosyanın içini tamamen temizleyip baştan yazar)
+            using (StreamWriter sw = new StreamWriter(FileHelper.CalismaPath, false))
+            {
+                foreach (DataGridViewRow row in dgvCalismalar.Rows)
+                {
+                    // Eğer satır boş değilse dosyaya yaz
+                    if (row.Cells[0].Value != null)
+                    {
+                        string guncelSatir = $"{row.Cells[0].Value}|{row.Cells[1].Value}|{row.Cells[2].Value}|{row.Cells[3].Value}|{row.Cells[4].Value}";
+                        sw.WriteLine(guncelSatir);
+                    }
+                }
+            }
+
+            MessageBox.Show("Kayıt başarıyla silindi ve dosya güncellendi! 🗑️", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnKaydet_Click_1(object sender, EventArgs e)
@@ -138,7 +153,7 @@ namespace DgsTakipSistemi_DGSTS_
             FileHelper.SatirEkle(FileHelper.CalismaPath, satir);
 
             txtNot.Clear();
-            nudSaat.Value = 0;
+            nudSaat.Value = 1;
             cmbDers.SelectedIndex = -1;
             cmbKonu.SelectedIndex = -1;
 
