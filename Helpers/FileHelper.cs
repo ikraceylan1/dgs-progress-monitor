@@ -20,7 +20,7 @@ namespace DgsTakipSistemi_DGSTS_
 
             if (!File.Exists(CalismaPath)) File.Create(CalismaPath).Close();
             if (!File.Exists(DenemePath)) File.Create(DenemePath).Close();
-            if (!File.Exists(HedefPath)) File.WriteAllText(HedefPath, "6.0|40.0|55.0");
+            if (!File.Exists(HedefPath)) File.Create(HedefPath).Close();
         }
 
         public static List<string> SatirlariOku(string dosyaYolu)

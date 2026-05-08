@@ -129,7 +129,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnHedef.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 322</value>
+    <value>169, 439</value>
   </data>
   <data name="btnHedef.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 60</value>
@@ -151,7 +151,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnGrafik.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 256</value>
+    <value>169, 354</value>
   </data>
   <data name="btnGrafik.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 60</value>
@@ -175,7 +175,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnDeneme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 193</value>
+    <value>169, 272</value>
   </data>
   <data name="btnDeneme.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 60</value>
@@ -196,7 +196,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnGunluk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 127</value>
+    <value>169, 185</value>
   </data>
   <data name="btnGunluk.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 60</value>
@@ -214,7 +214,7 @@
     <value>Segoe UI, 9pt</value>
   </data>
   <data name="chkTema.Location" type="System.Drawing.Point, System.Drawing">
-    <value>326, 26</value>
+    <value>325, 65</value>
   </data>
   <data name="chkTema.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 24</value>
@@ -222,8 +222,17 @@
   <data name="chkTema.Text" xml:space="preserve">
     <value>🌙 Karanlık Mod</value>
   </data>
+  <data name="pictureBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1073, 602</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>482, 503</value>
+    <value>1073, 602</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

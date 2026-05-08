@@ -29,18 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAna));
-            flowLayoutPanel1 = new FlowLayoutPanel();
             btnHedef = new Button();
             btnGrafik = new Button();
             btnDeneme = new Button();
             btnGunluk = new Button();
             chkTema = new CheckBox();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // flowLayoutPanel1
-            // 
-            resources.ApplyResources(flowLayoutPanel1, "flowLayoutPanel1");
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // btnHedef
             // 
@@ -90,6 +86,13 @@
             chkTema.UseVisualStyleBackColor = false;
             chkTema.CheckedChanged += chkTema_CheckedChanged;
             // 
+            // pictureBox1
+            // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Image = Properties.Resources.görselgıf;
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.TabStop = false;
+            // 
             // FormAna
             // 
             resources.ApplyResources(this, "$this");
@@ -100,19 +103,20 @@
             Controls.Add(btnGrafik);
             Controls.Add(btnDeneme);
             Controls.Add(btnGunluk);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(pictureBox1);
             MaximizeBox = false;
             Name = "FormAna";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private FlowLayoutPanel flowLayoutPanel1;
         private Button btnHedef;
         private Button btnGrafik;
         private Button btnDeneme;
         private Button btnGunluk;
         private CheckBox chkTema;
+        private PictureBox pictureBox1;
     }
 }

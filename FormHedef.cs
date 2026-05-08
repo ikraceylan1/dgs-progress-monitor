@@ -13,8 +13,7 @@ namespace DgsTakipSistemi_DGSTS_
             InitializeComponent();
             this.FormClosing += FormHedef_FormClosing;
 
-            // EFSANE TAKTİK: Butonların çift tetiklenmesini (bug'ı) önlemek ve
-            // tamamen ölmelerini engellemek için önce eylemi siliyoruz, sonra ekliyoruz.
+            //cift ekleme hatası alıyordum, bu yüzden önceki eventleri kaldırıp sonra ekliyoruz
             btnEkle.Click -= btnEkle_Click;
             btnEkle.Click += btnEkle_Click;
 
@@ -51,10 +50,13 @@ namespace DgsTakipSistemi_DGSTS_
             dgvHedefler.Columns.Clear();
             dgvHedefler.Columns.Add("Ders", "Ders");
             dgvHedefler.Columns.Add("Saat", "Günlük Saat");
-            dgvHedefler.Columns.Add("GunlukTest", "Günlük Test");
-            dgvHedefler.Columns["Ders"].Width = 120;
-            dgvHedefler.Columns["Saat"].Width = 100;
-            dgvHedefler.Columns["GunlukTest"].Width = 100;
+            dgvHedefler.Columns.Add("GunlukSoru", "Günlük Soru");
+            dgvHedefler.Columns.Add("Durum", "Haftalık İlerleme");
+
+            dgvHedefler.Columns["Ders"].Width = 100;
+            dgvHedefler.Columns["Saat"].Width = 90;
+            dgvHedefler.Columns["GunlukSoru"].Width = 90;
+            dgvHedefler.Columns["Durum"].Width = 180; 
             dgvHedefler.AllowUserToAddRows = false;
 
             YukleKayitliHedefler();
@@ -71,7 +73,6 @@ namespace DgsTakipSistemi_DGSTS_
             if (cmbSinavYili.SelectedItem == null) return;
             int yil = int.Parse(cmbSinavYili.SelectedItem.ToString());
 
-            // Senin orijinal ayarladığın 6. aya (Haziran) geri alındı!
             DateTime sinavTarihi = new DateTime(yil, 6, 1);
             int kalanGun = (sinavTarihi - DateTime.Now.Date).Days;
             lblKalanGun.Text = kalanGun > 0
@@ -89,7 +90,7 @@ namespace DgsTakipSistemi_DGSTS_
 
             bool dersBulundu = false;
 
-            // 1. Tabloda var mı diye bakıyoruz
+            // Tabloda var mı diye bakıyoruz
             foreach (DataGridViewRow row in dgvHedefler.Rows)
             {
                 if (row.Cells["Ders"].Value?.ToString() == ders)
@@ -102,15 +103,15 @@ namespace DgsTakipSistemi_DGSTS_
                         row.Cells["Saat"].Value = $"{toplamSaat} saat";
                     }
 
-                    int mevcutTest = Convert.ToInt32(row.Cells["GunlukTest"].Value);
-                    row.Cells["GunlukTest"].Value = mevcutTest + yeniTest;
+                    int mevcutSoru = Convert.ToInt32(row.Cells["GunlukSoru"].Value);
+                    row.Cells["GunlukSoru"].Value = mevcutSoru + yeniTest;
 
                     dersBulundu = true;
                     break;
                 }
             }
 
-            // 2. Yoksa yeni ekliyoruz
+            // yeni ekliyoruz
             if (!dersBulundu)
             {
                 dgvHedefler.Rows.Add(ders, $"{yeniSaat} saat", yeniTest);
@@ -118,12 +119,12 @@ namespace DgsTakipSistemi_DGSTS_
 
             dgvHedefler.ClearSelection();
 
-            // 3. EFSANE DOKUNUŞ: Her ekleme/güncelleme sonrası arka planda SESSİZCE dosyaya kaydet!
             VerileriDosyayaKaydet();
+            HaftalikIlerlemeyiHesapla();
         }
-            
-            
-        
+
+
+
 
         private void VerileriDosyayaKaydet()
         {
@@ -141,8 +142,8 @@ namespace DgsTakipSistemi_DGSTS_
                         {
                             string ders = row.Cells["Ders"].Value.ToString();
                             string saat = row.Cells["Saat"].Value?.ToString() ?? "0 saat";
-                            string test = row.Cells["GunlukTest"].Value?.ToString() ?? "0";
-                            sw.WriteLine($"{ders};{saat};{test}");
+                            string soru = row.Cells["GunlukSoru"].Value?.ToString() ?? "0";
+                            sw.WriteLine($"{ders};{saat};{soru}");
                         }
                     }
                 }
@@ -157,13 +158,14 @@ namespace DgsTakipSistemi_DGSTS_
                 dgvHedefler.Rows.Remove(dgvHedefler.SelectedRows[0]);
                 dgvHedefler.ClearSelection();
 
-                // Sildikten sonra da dosyadan kalıcı olarak uçurmak için sessizce kaydet!
+               
                 VerileriDosyayaKaydet();
             }
             else
             {
                 MessageBox.Show("Lütfen tablodan silmek istediğiniz dersi seçiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            HaftalikIlerlemeyiHesapla();
         }
 
 
@@ -205,10 +207,68 @@ namespace DgsTakipSistemi_DGSTS_
                                 dgvHedefler.Rows.Add(hucreler[0], hucreler[1], hucreler[2]);
                             }
                         }
-                        dgvHedefler.ClearSelection(); // Yükleme sonrası seçimi sıfırla
+                        dgvHedefler.ClearSelection(); 
                     }
                 }
                 catch { }
+            }
+            HaftalikIlerlemeyiHesapla();
+        }
+
+        private void HaftalikIlerlemeyiHesapla()
+        {
+            // Bu haftanın sınırlarını bul
+            DateTime bugun = DateTime.Now.Date;
+            int gunFarki = (int)bugun.DayOfWeek == 0 ? 6 : (int)bugun.DayOfWeek - 1; 
+            DateTime haftaBasi = bugun.AddDays(-gunFarki);
+            DateTime haftaSonu = haftaBasi.AddDays(6);
+
+            Dictionary<string, double> haftalikCalismalar = new Dictionary<string, double>();
+
+            if (File.Exists(FileHelper.CalismaPath))
+            {
+                List<string> satirlar = FileHelper.SatirlariOku(FileHelper.CalismaPath);
+                foreach (string satir in satirlar)
+                {
+                    string[] p = satir.Split('|');
+                    // Tarih kontrolü yap
+                    if (p.Length >= 4 && DateTime.TryParse(p[0], out DateTime calismaTarihi))
+                    {
+                        if (calismaTarihi >= haftaBasi && calismaTarihi <= haftaSonu)
+                        {
+                            string ders = p[1];
+                            double.TryParse(p[3].Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double saat);
+
+                            if (haftalikCalismalar.ContainsKey(ders))
+                                haftalikCalismalar[ders] += saat;
+                            else
+                                haftalikCalismalar[ders] = saat;
+                        }
+                    }
+                }
+            }
+
+            foreach (DataGridViewRow row in dgvHedefler.Rows)
+            {
+                if (row.Cells["Ders"].Value != null)
+                {
+                    string ders = row.Cells["Ders"].Value.ToString();
+                    string hedefSaatStr = row.Cells["Saat"].Value.ToString().Replace(" saat", "");
+                    double.TryParse(hedefSaatStr, out double hedefSaat);
+
+                   
+                    double gerceklesenSaat = haftalikCalismalar.ContainsKey(ders) ? haftalikCalismalar[ders] : 0;
+
+                    if (hedefSaat > 0)
+                    {
+                        double yuzde = (gerceklesenSaat / hedefSaat) * 100;
+
+                        if (yuzde >= 100)
+                            row.Cells["Durum"].Value = $"🌟 AŞILDI! ({gerceklesenSaat}/{hedefSaat} Saat)";
+                        else
+                            row.Cells["Durum"].Value = $"% {Math.Round(yuzde)} Tamamlandı ({gerceklesenSaat}/{hedefSaat} Saat)";
+                    }
+                }
             }
         }
     }

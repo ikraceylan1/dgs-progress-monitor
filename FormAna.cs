@@ -37,13 +37,11 @@ namespace DgsTakipSistemi_DGSTS_
 
         private void chkTema_CheckedChanged(object sender, EventArgs e)
         {
-            // 1. Hafızayı güncelle
+           
             TemaHelper.KaranlikModAcik = chkTema.Checked;
-
-            // 2. Kendi yazısını değiştir
+          
             chkTema.Text = chkTema.Checked ? "🌙 Karanlık Mod" : "☀️ Aydınlık Mod";
 
-            // 3. BÜYÜ BURADA: Sadece FormAna'yı değil, arka planda açık olan TÜM formları anında boya!
             foreach (Form acikForm in Application.OpenForms)
             {
                 TemaHelper.TemaUygula(acikForm);

@@ -94,7 +94,7 @@ namespace DgsTakipSistemi_DGSTS_
             dgvCalismalar.Columns["Konu"].Width = 230;
             dgvCalismalar.Columns["Saat"].Width = 60;
             dgvCalismalar.Columns["Not"].Width = 200;
-
+            
             List<string> satirlar = FileHelper.SatirlariOku(FileHelper.CalismaPath);
             foreach (string satir in satirlar)
             {
@@ -113,17 +113,15 @@ namespace DgsTakipSistemi_DGSTS_
                 return;
             }
 
-            // 1. Önce satırı ekrandaki tablodan (DataGridView) siliyoruz
+           
             dgvCalismalar.Rows.Remove(dgvCalismalar.SelectedRows[0]);
             dgvCalismalar.ClearSelection();
 
-            // 2. KURŞUN GEÇİRMEZ TAKTİK: Tablonun GÜNCEL halini al, dosyayı tamamen EZİP baştan yaz!
-            // (StreamWriter'daki 'false' parametresi dosyanın içini tamamen temizleyip baştan yazar)
             using (StreamWriter sw = new StreamWriter(FileHelper.CalismaPath, false))
             {
                 foreach (DataGridViewRow row in dgvCalismalar.Rows)
                 {
-                    // Eğer satır boş değilse dosyaya yaz
+             
                     if (row.Cells[0].Value != null)
                     {
                         string guncelSatir = $"{row.Cells[0].Value}|{row.Cells[1].Value}|{row.Cells[2].Value}|{row.Cells[3].Value}|{row.Cells[4].Value}";

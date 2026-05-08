@@ -19,7 +19,6 @@ namespace DgsTakipSistemi_DGSTS_
 
         private void FormDeneme_Load(object sender, EventArgs e)
         {
-            // Form açılırken anında TemaHelper'a bakar, karanlıksa siyah giyinir
             TemaHelper.TemaUygula(this);
             ListeyiYukle();
         }
@@ -30,7 +29,7 @@ namespace DgsTakipSistemi_DGSTS_
             {
                 MessageBox.Show("Matematik doğru ve yanlışlarının toplamı 50'yi geçemez! ❌", "Sınır İhlali", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                // Hangi kutuyu değiştiriyorsak, onu otomatik olarak maksimum alabileceği değere çeker
+                // Hangi kutuyu değiştiriyorsak onu otomatik olarak maksimum alabileceği değere çeker
                 NumericUpDown tetikleyen = sender as NumericUpDown;
                 if (tetikleyen != null)
                     tetikleyen.Value = 50 - (tetikleyen == nudMatDogru ? nudMatYanlis.Value : nudMatDogru.Value);
@@ -48,18 +47,18 @@ namespace DgsTakipSistemi_DGSTS_
             }
             
            
-            // --- 2. NET HESAPLAMA (Eksi netler artık serbest) ---
+            // Net Hesaplama
             decimal sayisalNet = nudMatDogru.Value - (nudMatYanlis.Value / 4);
             decimal sozelNet = nudTurkDogru.Value - (nudTurkYanlis.Value / 4);
             decimal eaNet = sayisalNet + sozelNet;
             if (sayisalNet <= 0 || sozelNet <= 0)
             {
-                // Eğer kural ihlali varsa, o sahte 148 puanları silip yerine hata mesajı basıyoruz
+               
                 lblSay.Text = "DGS-SAY: Hesaplanamaz (1 Net Kuralı)";
                 lblSoz.Text = "DGS-SÖZ: Hesaplanamaz (1 Net Kuralı)";
                 lblEA.Text = "DGS-EA: Hesaplanamaz (1 Net Kuralı)";
 
-                return; // İşlemi burada kesiyoruz ki alt satırlara inip o taban puanları tekrar eklemesin!
+                return; 
             }
             decimal aobp = nudObp.Value * 0.8m * 0.6m;
 
@@ -105,11 +104,10 @@ namespace DgsTakipSistemi_DGSTS_
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
-            // 1. Önce kullanıcının netlerini hesaplayalım (Doğru - (Yanlış / 4))
+            
             double matNet = (double)nudMatDogru.Value - ((double)nudMatYanlis.Value / 4.0);
             double turkceNet = (double)nudTurkDogru.Value - ((double)nudTurkYanlis.Value / 4.0);
 
-            // 2. ÖSYM Kuralı Kontrolü: Herhangi biri 0 veya eksiyse kaydetmeyi DURDUR!
             if (matNet < 1 || turkceNet < 1)
             {
                 MessageBox.Show("ÖSYM kuralları gereği DGS puanınızın hesaplanabilmesi için hem Matematik hem de Türkçe testinden en az 1 net yapmalısınız!",
@@ -117,7 +115,7 @@ namespace DgsTakipSistemi_DGSTS_
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
 
-                return; // return komutu, aşağıdaki kodların çalışmasını iptal eder ve işlemi anında keser!
+                return; 
             }
             string ad = txtDenemeAdi.Text.Trim().Replace("|", "-");
             if (string.IsNullOrEmpty(ad))
@@ -160,25 +158,25 @@ namespace DgsTakipSistemi_DGSTS_
                 return;
             }
 
-            // 1. Önce satırı ekrandan siliyoruz
+            // Satırı ekrandan siliyoruz
             dgvDenemeler.Rows.Remove(dgvDenemeler.SelectedRows[0]);
             dgvDenemeler.ClearSelection();
 
-            // 2. KURŞUN GEÇİRMEZ TAKTİK: Tablonun GÜNCEL halini al, dosyayı ezip baştan yaz!
+            //Tablonun güncel halini al tabloyu baştan yazdırt
             using (StreamWriter sw = new StreamWriter(FileHelper.DenemePath, false))
             {
                 foreach (DataGridViewRow row in dgvDenemeler.Rows)
                 {
-                    if (row.Cells[0].Value != null) // Boş satır değilse
+                    if (row.Cells[0].Value != null)
                     {
-                        // SENIOR TAKTİĞİ: 13 hücreyi amele gibi tek tek yazmak yerine döngüyle birleştiriyoruz!
-                        string[] hucreler = new string[13]; // 13 sütunumuz var
+                        //tek tek yazmak yerine döngüyle birleştiriyoruz
+                        string[] hucreler = new string[13]; 
                         for (int i = 0; i < 13; i++)
                         {
                             hucreler[i] = row.Cells[i].Value?.ToString() ?? "";
                         }
 
-                        // Bütün dizinin arasına "|" koyarak tek bir metin yapar. Mükemmel temizlik!
+                        
                         string guncelSatir = string.Join("|", hucreler);
 
                         sw.WriteLine(guncelSatir);

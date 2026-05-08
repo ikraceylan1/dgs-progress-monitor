@@ -36,6 +36,9 @@
             cmbDersler = new ComboBox();
             nudTestAdet = new NumericUpDown();
             btnEkle = new Button();
+            lblHedefDers = new Label();
+            lblHedefSaat = new Label();
+            lblHedefSoru = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvHedefler).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCalisma).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudTestAdet).BeginInit();
@@ -47,13 +50,13 @@
             dgvHedefler.Location = new Point(12, 283);
             dgvHedefler.Name = "dgvHedefler";
             dgvHedefler.RowHeadersWidth = 51;
-            dgvHedefler.Size = new Size(776, 143);
+            dgvHedefler.Size = new Size(884, 198);
             dgvHedefler.TabIndex = 6;
             // 
             // cmbSinavYili
             // 
             cmbSinavYili.FormattingEnabled = true;
-            cmbSinavYili.Location = new Point(114, 12);
+            cmbSinavYili.Location = new Point(745, 12);
             cmbSinavYili.Name = "cmbSinavYili";
             cmbSinavYili.Size = new Size(151, 28);
             cmbSinavYili.TabIndex = 7;
@@ -70,7 +73,7 @@
             // lblKalanGun
             // 
             lblKalanGun.AutoSize = true;
-            lblKalanGun.Location = new Point(303, 20);
+            lblKalanGun.Location = new Point(745, 61);
             lblKalanGun.Name = "lblKalanGun";
             lblKalanGun.Size = new Size(50, 20);
             lblKalanGun.TabIndex = 10;
@@ -78,7 +81,7 @@
             // 
             // nudCalisma
             // 
-            nudCalisma.Location = new Point(258, 101);
+            nudCalisma.Location = new Point(279, 94);
             nudCalisma.Name = "nudCalisma";
             nudCalisma.Size = new Size(150, 27);
             nudCalisma.TabIndex = 11;
@@ -86,14 +89,14 @@
             // cmbDersler
             // 
             cmbDersler.FormattingEnabled = true;
-            cmbDersler.Location = new Point(78, 100);
+            cmbDersler.Location = new Point(278, 42);
             cmbDersler.Name = "cmbDersler";
             cmbDersler.Size = new Size(151, 28);
             cmbDersler.TabIndex = 12;
             // 
             // nudTestAdet
             // 
-            nudTestAdet.Location = new Point(457, 101);
+            nudTestAdet.Location = new Point(279, 142);
             nudTestAdet.Name = "nudTestAdet";
             nudTestAdet.Size = new Size(150, 27);
             nudTestAdet.TabIndex = 13;
@@ -108,11 +111,41 @@
             btnEkle.UseVisualStyleBackColor = true;
             btnEkle.Click += btnEkle_Click;
             // 
+            // lblHedefDers
+            // 
+            lblHedefDers.AutoSize = true;
+            lblHedefDers.Location = new Point(97, 50);
+            lblHedefDers.Name = "lblHedefDers";
+            lblHedefDers.Size = new Size(84, 20);
+            lblHedefDers.TabIndex = 15;
+            lblHedefDers.Text = "Der seçiniz:";
+            // 
+            // lblHedefSaat
+            // 
+            lblHedefSaat.AutoSize = true;
+            lblHedefSaat.Location = new Point(97, 101);
+            lblHedefSaat.Name = "lblHedefSaat";
+            lblHedefSaat.Size = new Size(122, 20);
+            lblHedefSaat.TabIndex = 16;
+            lblHedefSaat.Text = "Hedeflenen Saat:";
+            // 
+            // lblHedefSoru
+            // 
+            lblHedefSoru.AutoSize = true;
+            lblHedefSoru.Location = new Point(97, 149);
+            lblHedefSoru.Name = "lblHedefSoru";
+            lblHedefSoru.Size = new Size(154, 20);
+            lblHedefSoru.TabIndex = 17;
+            lblHedefSoru.Text = "Çözülecek Soru Sayısı:\r\n";
+            // 
             // FormHedef
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1025, 612);
+            Controls.Add(lblHedefSoru);
+            Controls.Add(lblHedefSaat);
+            Controls.Add(lblHedefDers);
             Controls.Add(btnEkle);
             Controls.Add(nudTestAdet);
             Controls.Add(cmbDersler);
@@ -122,7 +155,7 @@
             Controls.Add(cmbSinavYili);
             Controls.Add(dgvHedefler);
             Name = "FormHedef";
-            Text = "FormHedef";
+            Text = "Haftalık Hedeflerim";
             Load += FormHedef_Load;
             ((System.ComponentModel.ISupportInitialize)dgvHedefler).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudCalisma).EndInit();
@@ -140,5 +173,8 @@
         private ComboBox cmbDersler;
         private NumericUpDown nudTestAdet;
         private Button btnEkle;
+        private Label lblHedefDers;
+        private Label lblHedefSaat;
+        private Label lblHedefSoru;
     }
 }
