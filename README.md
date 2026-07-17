@@ -34,4 +34,4 @@ Uygulama, nesne yönelimli programlama (OOP) prensiplerine uygun olarak modüler
  
 
 ---
-💡 *Not: Bu uygulama; dosya yönetimi (I/O işlemleri), formlar arası veri aktarımı ve Windows Forms arayüz tasarım pratiklerini gerçek bir probleme çözüm üreterek pekiştirmek amacıyla geliştirilmiştir.*
+*Not: Bu uygulama; dosya yönetimi (I/O işlemleri), formlar arası veri aktarımı ve Windows Forms arayüz tasarım pratiklerini gerçek bir probleme çözüm üreterek pekiştirmek amacıyla geliştirilmiştir.*
